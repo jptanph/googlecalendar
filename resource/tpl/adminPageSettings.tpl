@@ -22,7 +22,13 @@
 		<tr>
 			<th><label for="show_html_value">Retrieve events from : </label></th>
 			<td>
-                <input type='text'  readonly="true" class="fix" id="<?php echo $sPrefix;?>start_date" name="start_date" value='<?php echo $sStartDate;?>'> <label for="<?php echo $sPrefix;?>start_date" class='cp_icon'><a href="#" class='icon_calendar'></a></label>
+                <input type='text'  readonly="true" class="fix"  style='width:10%;' id="<?php echo $sPrefix;?>start_date" name="start_date" value='<?php echo $sStartDate;?>'> <label for="<?php echo $sPrefix;?>start_date" class='cp_icon'><a href="#" class='icon_calendar'></a></label>
+                 Time :
+                 <select id='<?php echo $sPrefix?>start_time' name='start_time'>
+                     <?php for($i = 0 ; $i<=23 ;$i++){?>
+                         <option value='<?php echo str_pad($i,2,'0',STR_PAD_LEFT);?>:00' <?php if($i == $iStartTime){?>selected='selected'<?php }?>><?php echo str_pad($i,2,'0',STR_PAD_LEFT);?>:00</option>
+                     <?php }?>
+                 </select>
 			    <p>
 			        The point in time at which to start retrieving events.
 			    </p>
@@ -31,7 +37,13 @@
 		<tr>
 			<th><label for="show_html_value">Retrieve events until : </label></th>
 			<td>
-                <input type='text' class="fix"  readonly="true"   id="<?php echo $sPrefix;?>end_date" name="end_date" value='<?php echo $sEndDate;?>'> <label class='cp_icon'  for="<?php echo $sPrefix;?>end_date"><a href="#" class='icon_calendar'></a></label>
+                <input type='text' class="fix"  readonly="true" style='width:10%;' id="<?php echo $sPrefix;?>end_date" name="end_date" value='<?php echo $sEndDate;?>'> <label class='cp_icon'  for="<?php echo $sPrefix;?>end_date"><a href="#" class='icon_calendar'></a></label>
+                 Time :
+                 <select id='<?php echo $sPrefix?>end_time' name='end_time'>
+                     <?php for($i = 0 ; $i<=23 ;$i++){?>
+                         <option value='<?php echo str_pad($i,2,'0',STR_PAD_LEFT);?>:00'  <?php if($i == $iEndTime){?>selected='selected'<?php }?>><?php echo str_pad($i,2,'0',STR_PAD_LEFT);?>:00</option>
+                     <?php }?>
+                 </select>
 			    <p>
                     The point in time at which to stop retrieving events.
 			    </p>

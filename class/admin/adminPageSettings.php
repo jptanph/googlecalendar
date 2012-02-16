@@ -22,8 +22,11 @@ class adminPageSettings extends Controller_Admin
         /** for settings value.**/
         $this->assign('iIdx',$aResult['idx']);
         $this->assign('sFeedUrl',$aResult['feed_url']);
-        $this->assign('sStartDate',$aResult['start_date']);
-        $this->assign('sEndDate',$aResult['end_date']);
+        $this->assign('sStartDate',$aResult['sdate']);
+        $this->assign('sEndDate',$aResult['edate']);
+        $this->assign('iStartTime',$aResult['start_time']);
+        $this->assign('iEndTime',$aResult['end_time']);
+
         $this->assign('iMaxEvent',$aResult['max_event']);
         $this->assign('sEventStyle',$aResult['event_style']);
         /** for settings value.**/
