@@ -7,13 +7,13 @@
 	<!-- input area -->
 	<table border="1" cellspacing="0" class="table_input_vr">
 		<colgroup>
-			<col width="220px" />
+			<col width="210px" />
 			<col width="*" />
 		</colgroup>
 		<tr>
 			<th class="padt1"><label for="show_html_value">Feed Url : </label></th>
 			<td class="padt1">
-                <span class="neccesary"> * </span> <input fw-filter="isFill" fw-label="feed_url"  type='text' name='feed_url' id='<?php echo $sPrefix?>feed_url' value='<?php echo $sFeedUrl;?>'>
+                <span class="neccesary"> * </span> <input fw-filter="isFill" fw-label="feed_url"  type='text' name='feed_url' style='width:98%;'id='<?php echo $sPrefix?>feed_url' value='<?php echo $sFeedUrl;?>'>
                 <p>Example: <br />
                     <span>http://www.google.com/calendar/feeds/your-email@gmail.com/public/basic.</span>
                 </p>
