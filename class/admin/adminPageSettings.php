@@ -11,12 +11,16 @@ class adminPageSettings extends Controller_Admin
         usbuilder()->init($this, $aArgs);
         $this->_sPrefix = $this->Request->getAppID() . '_';
         $this->_sImagePath = '/_sdk/img/' . $this->Request->getAppID() . '/';
+        usbuilder()->getFormAction($this->_sPrefix . 'settings_form','adminExecSave');
+        usbuilder()->validator(array('form' => $this->_sPrefix . 'settings_form'));
+
         $aResult = common()->modelAdmin()->execGetSettings();
 
         $this->assign('sPrefix',$this->_sPrefix);
         $this->assign('sImagePath',$this->_sImagePath);
 
         /** for settings value.**/
+        $this->assign('iIdx',$aResult['idx']);
         $this->assign('sFeedUrl',$aResult['feed_url']);
         $this->assign('sStartDate',$aResult['start_date']);
         $this->assign('sEndDate',$aResult['end_date']);
@@ -25,6 +29,9 @@ class adminPageSettings extends Controller_Admin
         /** for settings value.**/
 
         $this->importCss(__CLASS__);
+        $this->importCss('jqueryCalendar');
+        $this->importJs('jqueryCalendar');
+        $this->importJs(__CLASS__);
         $this->view(__CLASS__);
     }
 }
