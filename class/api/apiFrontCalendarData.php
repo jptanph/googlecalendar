@@ -37,11 +37,9 @@ class apiFrontCalendarData extends Controller_Api
         $aData['this_month'] = substr($aMonthInfo['month'],0,3) . '.';
         $aData['this_year'] = $aMonthInfo['year'];
 
-
         $aData['max_day'] = (int) $iMaxDay;
         $aData['start_day'] = (int) $sStartDay;
 
         return $aData;
-
     }
 }

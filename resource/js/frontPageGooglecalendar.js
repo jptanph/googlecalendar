@@ -1,5 +1,7 @@
 $(document).ready(function(){
+    
     frontPageGooglecalendar.init('','');
+
 });
 
 var frontPageGooglecalendar = {
@@ -7,7 +9,7 @@ var frontPageGooglecalendar = {
         var sCalendar = "";
         var aDays = ['S','M','T','W','T','F','S'];
         var data;
-        
+        $('.left,.right').css({'visibility':'hidden'});
         var options = {
             url : usbuilder.getUrl('apiFrontCalendarData'),
             dataType : 'json',
@@ -33,7 +35,7 @@ var frontPageGooglecalendar = {
                 
                 sCalendar += "<div class='googlecalendar_navs'>";
                 sCalendar +="   <ul>";
-                sCalendar +="     <li><a href='#' class='left' onclick='frontPageGooglecalendar.init(" + prev_month + "," + prev_year + ")'>&laquo;</a></li>";
+                sCalendar +="     <li><a href='#' class='left' id='left' onclick='frontPageGooglecalendar.init(" + prev_month + "," + prev_year + ")'>&laquo;</a></li>";
                 sCalendar +="     <li ><center>" + this_month + " " + this_year + "</center></li>";
                 sCalendar +="     <li><a href='#' class='right' onclick='frontPageGooglecalendar.init(" + next_month + "," + next_year + ")'>&raquo;</a></li>";
                 sCalendar +="   </ul>";
@@ -75,6 +77,7 @@ var frontPageGooglecalendar = {
                 sCalendar += "</tbody>";                
                 sCalendar += "</table>";
                 $("#googlecalendar_content").html(sCalendar);
+                
             }            
         }
         
