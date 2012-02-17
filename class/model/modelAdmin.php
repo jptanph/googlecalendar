@@ -10,8 +10,8 @@ class modelAdmin extends Model
         $sSql = "SELECT *,
             DATE_FORMAT(FROM_UNIXTIME(start_date),'%Y/%d/%m') as sdate,
             DATE_FORMAT(FROM_UNIXTIME(end_date),'%Y/%d/%m') as edate,
-            DATE_FORMAT(FROM_UNIXTIME(start_date),'%h') as start_time,
-            DATE_FORMAT(FROM_UNIXTIME(end_date),'%h') as end_time
+            DATE_FORMAT(FROM_UNIXTIME(start_date),'%H') as start_time,
+            DATE_FORMAT(FROM_UNIXTIME(end_date),'%H') as end_time
 
         FROM " . GOOGLECALENDAR_SETTINGS;
         return $this->query($sSql,'row');
@@ -42,10 +42,9 @@ class modelAdmin extends Model
         start_date = UNIX_TIMESTAMP('{$aArgs['start_date']} {$aArgs['start_time']}:00'),
         end_date = UNIX_TIMESTAMP('{$aArgs['end_date']} {$aArgs['end_time']}:00'),
         max_event = '{$aArgs['max_event']}',
-            event_style ='{$aArgs['event_style']}'
-            WHERE idx = {$aArgs['idx']}
-            ";
-//         usbuilder()->vd($sSql);
+        event_style ='{$aArgs['event_style']}'
+        WHERE idx = {$aArgs['idx']}
+        ";
         return $this->query($sSql);
     }
 }

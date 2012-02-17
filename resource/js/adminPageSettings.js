@@ -9,5 +9,13 @@ var adminPageSettings = {
         if(oValidator.formName.getMessage('googlecalendar_settings_form')){
             document.googlecalendar_settings_form.submit();
         }   
+    },execReset : function(){
+        $("#googlecalendar_feed_url").val('');
+        $("#googlecalendar_start_date").val('');
+        $("#googlecalendar_end_date").val('');
+        $("select#googlecalendar_start_time").val('00:00');
+        $("select#googlecalendar_end_time").val('00:00');
+        $("#googlecalendar_max_event").val('');
+        $("#googlecalendar_event_style").val('');
     }
 }

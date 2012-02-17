@@ -14,7 +14,7 @@
 			<th class="padt1"><label for="show_html_value">Feed Url : </label></th>
 			<td class="padt1">
                 <span class="neccesary"> * </span> <input fw-filter="isFill" fw-label="feed_url"  type='text' name='feed_url' style='width:98%;'id='<?php echo $sPrefix?>feed_url' value='<?php echo $sFeedUrl;?>'>
-                <p>Example: <br />
+                <p>Example:
                     <span>http://www.google.com/calendar/feeds/your-email@gmail.com/public/basic.</span>
                 </p>
 			</td>
@@ -25,8 +25,9 @@
                 <input type='text'  readonly="true" class="fix"  style='width:10%;' id="<?php echo $sPrefix;?>start_date" name="start_date" value='<?php echo $sStartDate;?>'> <label for="<?php echo $sPrefix;?>start_date" class='cp_icon'><a href="#" class='icon_calendar'></a></label>
                  Time :
                  <select id='<?php echo $sPrefix?>start_time' name='start_time'>
+                     <option>-select-</option>
                      <?php for($i = 0 ; $i<=23 ;$i++){?>
-                         <option value='<?php echo str_pad($i,2,'0',STR_PAD_LEFT);?>:00' <?php if($i == $iStartTime){?>selected='selected'<?php }?>><?php echo str_pad($i,2,'0',STR_PAD_LEFT);?>:00</option>
+                         <option id='<?php echo $i;?>' value='<?php echo str_pad($i,2,'0',STR_PAD_LEFT);?>:00' <?php if($i == $iStartTime){?>selected='selected'<?php }?>><?php echo str_pad($i,2,'0',STR_PAD_LEFT);?>:00</option>
                      <?php }?>
                  </select>
 			    <p>
@@ -40,8 +41,9 @@
                 <input type='text' class="fix"  readonly="true" style='width:10%;' id="<?php echo $sPrefix;?>end_date" name="end_date" value='<?php echo $sEndDate;?>'> <label class='cp_icon'  for="<?php echo $sPrefix;?>end_date"><a href="#" class='icon_calendar'></a></label>
                  Time :
                  <select id='<?php echo $sPrefix?>end_time' name='end_time'>
+                     <option>-select-</option>
                      <?php for($i = 0 ; $i<=23 ;$i++){?>
-                         <option value='<?php echo str_pad($i,2,'0',STR_PAD_LEFT);?>:00'  <?php if($i == $iEndTime){?>selected='selected'<?php }?>><?php echo str_pad($i,2,'0',STR_PAD_LEFT);?>:00</option>
+                         <option id='<?php echo $i;?>' value='<?php echo str_pad($i,2,'0',STR_PAD_LEFT);?>:00'  <?php if($i == $iEndTime){?>selected='selected'<?php }?>><?php echo str_pad($i,2,'0',STR_PAD_LEFT);?>:00</option>
                      <?php }?>
                  </select>
 			    <p>
@@ -53,7 +55,7 @@
 		<tr>
 			<th><label for="show_html_value">Maximum number of events to retrieve : </label></th>
 			<td>
-			    <input type='text' value='<?php echo $iMaxEvent;?>' name='max_event'>
+			    <input type='text' id='<?php echo $sPrefix?>max_event' value='<?php echo $iMaxEvent;?>' name='max_event'>
 			    <p>
 			        Number of the event you want to show on your page.
 			    </p>
@@ -62,7 +64,7 @@
 		<tr>
 			<th><label for="show_html_value">Event Display Editor : </label></th>
 			<td>
-			    <textarea style='resize:none;height:100px;padding:6px' name='event_style'><?php echo $sEventStyle;?></textarea>
+			    <textarea style='resize:none;height:100px;padding:6px' name='event_style' id='<?php echo $sPrefix?>event_style'><?php echo $sEventStyle;?></textarea>
 			    <p>
 			        You can customized the appearance of the calendar event.
 			    </p>
@@ -72,7 +74,7 @@
 </form>
 <div class="tbl_lb_wide_btn">
 	<a href="#none" class="btn_apply" title="Save changes"  onclick='adminPageSettings.execSave();'>Save</a>
-	<a href="#none" class="add_link" title="Reset to default">Reset to Default</a>
+	<a href="#none" class="add_link" title="Reset to default" onclick='adminPageSettings.execReset();'>Reset to Default</a>
 </div>
 <div id="color_picker_area">
 </div>
