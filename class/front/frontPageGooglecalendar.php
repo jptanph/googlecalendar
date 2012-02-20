@@ -14,10 +14,7 @@ class frontPageGooglecalendar extends Controller_Front
         $sHtml .= "<div class='{$this->_sPrefix}wrapper' id='{$this->_sPrefix}content'></div><div class='texthere'>asdasdasd</div>";
 
         $this->importCss(__CLASS__);
-
-        $this->importJs('jquery.qtip-1.0.0-rc3.min');
         $this->importJs(__CLASS__);
-
         $this->assign('googlecalendar',$sHtml);
     }
 }

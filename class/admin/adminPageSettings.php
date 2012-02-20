@@ -1,5 +1,6 @@
 <?php
 require_once('builder/builderInterface.php');
+require_once('gcParser.php');
 
 class adminPageSettings extends Controller_Admin
 {
@@ -9,6 +10,9 @@ class adminPageSettings extends Controller_Admin
     protected function run($aArgs)
     {
         usbuilder()->init($this, $aArgs);
+
+       gcParser::init();
+
         $this->_sPrefix = $this->Request->getAppID() . '_';
         $this->_sImagePath = '/_sdk/img/' . $this->Request->getAppID() . '/';
         usbuilder()->getFormAction($this->_sPrefix . 'settings_form','adminExecSave');
