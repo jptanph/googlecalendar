@@ -79,7 +79,7 @@ class gcParser
     private function _feedUrlConstructor()
     {
         $sGcParam = "&fields=entry(title,link[@rel='alternate'],content,gd:where,gd:when,gCal:uid)";
-        $sFeedEntry = "?alt=json&singleevents=true&sortorder=ascending&orderby=starttime&start-min=1970-01-01T00:00:00&start-max=2038-01-01T00:00:00&max-results=25";
+        $sFeedEntry = "?alt=json&singleevents=true&sortorder=ascending&orderby=starttime&max-results=25";
         $sQryParams = $sFeedEntry . $sGcParam;
 
         $aParseUrl = parse_url ( $this->_sFeedUrl );
