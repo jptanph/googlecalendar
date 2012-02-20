@@ -20,6 +20,8 @@ var frontPageGooglecalendar = {
             },success : function(server_response){
                 data = server_response.Data;
                 
+               // console.log(data.event_info);
+                
                 total_days = data.start_day + data.max_day;
                 start_day = data.start_day;
                 max_day = data.max_day;         
@@ -32,6 +34,7 @@ var frontPageGooglecalendar = {
                 
                 this_month = data.this_month;
                 this_year = data.this_year;
+                this_month_num = data.this_month_num;
                 
                 sCalendar += "<div class='googlecalendar_navs'>";
                 sCalendar +="   <ul>";
@@ -53,6 +56,11 @@ var frontPageGooglecalendar = {
                 sCalendar += "</thead>";
                 sCalendar += "<tbody>";
                 
+                var iTotalEvent;
+                var sMonth = ( this_month_num > 9 ) ? this_month_num : '0'+this_month_num;
+                var sYearMonth = this_year+'-'+ sMonth+'-';
+               
+
                     for( i = 0 ; i < total_days ; i++ )
                     {
                         if ( ( i % 7 ) == 0 ) {
@@ -64,8 +72,18 @@ var frontPageGooglecalendar = {
                             sCalendar += "<td>&nbsp;</td>\n";
                         }
                         else
-                        {
-                            sCalendar += "<td><a href='#none'>" + ( i - start_day + 1 ) + " </a></td>\n";                                                            
+                        {   
+                            sLoopDate = ( ( i - start_day + 1 ) < 10 ) ?"0"+( i - start_day + 1 ) : ( i - start_day + 1 )
+                            $.each(data.event_info,function(index,value){
+                                sThisDate = sYearMonth+sLoopDate;
+
+                                if(value.loop_date == sThisDate)
+                                {
+                                    iTotalEvent = value.total_sched;
+                                }
+                            });
+
+                            sCalendar += "<td><a href='#none'>" + ( i - start_day + 1 ) + " </a> <span style='color:blue;font-weight:bold;'>" + iTotalEvent + "</span></td>\n";                                                            
                         }
                         
                         if ( ( i % 7 ) == 6 )

@@ -8,7 +8,8 @@ class apiFrontCalendarData extends Controller_Api
     {
         usbuilder()->init($this, $aArgs);
         $aData = array();
-        $aEvents = array();
+        $aEvent = array();
+
         $oGcParser = new gcParser();
 
         $aResult = common()->modelFront()->execGetSettings();
@@ -39,8 +40,10 @@ class apiFrontCalendarData extends Controller_Api
         $iMaxDay    = date("t",$iTimeStamp);
         $aMonthInfo = getdate ($iTimeStamp);
         $sStartDay  = $aMonthInfo['wday'];
-
-
+        $sMonth = str_pad( $aMonthInfo['mon'] , 2 , '0' , STR_PAD_LEFT );
+        $sYear = $aMonthInfo['year'];
+        $sYearMonth = $sYear . '-' . $sMonth . '-';
+        $iTotalEvent = 0;
 
         for( $i = 0 ; $i < ($iMaxDay + $sStartDay ) ; $i++)
         {
@@ -50,14 +53,12 @@ class apiFrontCalendarData extends Controller_Api
             if($i < $sStartDay)
             {
 
-            }else
+            }
+            else
             {
-               foreach($aFeed as $rows)
-               {
-                    $aEvents[] = array(
-                        'start_date' => $rows['dg$when'][0]['startTime']
-                    );
-               }
+                $iDay = ( $i - $sStartDay + 1 );
+                $sCurrentDate = $sYearMonth . str_pad( $iDay , 2 , '0' , STR_PAD_LEFT );
+                $aEvent[] = array('loop_date'=>$sCurrentDate,'total_sched' => $this->_tempArrayEventDb($aFeed,$sCurrentDate));
             }
         }
 
@@ -67,10 +68,25 @@ class apiFrontCalendarData extends Controller_Api
         $aData['prev_month'] = (int)  $sPrevMonth;
         $aData['this_month'] = substr($aMonthInfo['month'],0,3) . '.';
         $aData['this_year'] = $aMonthInfo['year'];
+        $aData['this_month_num'] = $aMonthInfo['mon'];
 
         $aData['max_day'] = (int) $iMaxDay;
         $aData['start_day'] = (int) $sStartDay;
-        $aData['event_schedule'] = $aEvents;
+        $aData['event_info'] = $aEvent;
         return $aData;
+    }
+
+    private function _tempArrayEventDb($aFeed,$sCurrentDate)
+    {
+        $iTotal = 0;
+
+        foreach($aFeed as $rows)
+        {
+           if(date('Y-m-d', $rows['start_time']) <= $sCurrentDate && date('Y-m-d', $rows['end_time']) >= $sCurrentDate)
+           {
+                $iTotal += 1;
+           }
+        }
+        return $iTotal;
     }
 }

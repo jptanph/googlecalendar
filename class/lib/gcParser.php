@@ -31,11 +31,13 @@ class gcParser
         foreach($aFeed as $rows)
         {
             $aData[] = array(
-                'title' => $rows['title'],
-                'content' => $rows['content'],
-                'link' => $rows['link'],
+                'title' => $rows['title']['$t'],
+                'content' => $rows['content']['$t'],
+                'event_link' => $rows['link'][0]['href'],
                 'where' => $rows['gd$where'],
                 'when' => $rows['gd$when'],
+                'start_time' => $this->_isoToUts($rows['gd$when'][0]['startTime']),
+                'end_time' => $this->_isoToUts($rows['gd$when'][0]['endTime']),
                 'calid' => $rows['gCal$uid'],
             );
         }
@@ -79,7 +81,7 @@ class gcParser
     private function _feedUrlConstructor()
     {
         $sGcParam = "&fields=entry(title,link[@rel='alternate'],content,gd:where,gd:when,gCal:uid)";
-        $sFeedEntry = "?alt=json&singleevents=true&sortorder=ascending&orderby=starttime&max-results=25";
+        $sFeedEntry = "?alt=json&singleevents=false&orderby=starttime&max-results=25";
         $sQryParams = $sFeedEntry . $sGcParam;
 
         $aParseUrl = parse_url ( $this->_sFeedUrl );
@@ -87,6 +89,12 @@ class gcParser
 
         $sFeedConstructor =$aParseUrl['scheme'] . '://' . $aParseUrl['host'] . $sUrlEntry . $sQryParams;
         return $sFeedConstructor;
+    }
+
+    public function _isoToUts( $sIso )
+    {
+        sscanf( $sIso, "%u-%u-%uT%u:%u:%uZ", $year, $month, $day, $hour, $minute, $second );
+        return mktime( $hour, $minute, $second, $month, $day, $year );
     }
 
 }
