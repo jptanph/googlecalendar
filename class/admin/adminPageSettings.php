@@ -10,15 +10,18 @@ class adminPageSettings extends Controller_Admin
     protected function run($aArgs)
     {
         usbuilder()->init($this, $aArgs);
-
-       gcParser::init();
-
         $this->_sPrefix = $this->Request->getAppID() . '_';
         $this->_sImagePath = '/_sdk/img/' . $this->Request->getAppID() . '/';
         usbuilder()->getFormAction($this->_sPrefix . 'settings_form','adminExecSave');
         usbuilder()->validator(array('form' => $this->_sPrefix . 'settings_form'));
 
         $aResult = common()->modelAdmin()->execGetSettings();
+
+        $oGcParser = new gcParser();
+        $oGcParser->setFeedUrl($aResult['feed_url']);
+        $aData = $oGcParser->init();
+
+        usbuilder()->vd($aData);
 
         $this->assign('sPrefix',$this->_sPrefix);
         $this->assign('sImagePath',$this->_sImagePath);
