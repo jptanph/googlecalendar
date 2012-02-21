@@ -13,7 +13,7 @@ class gcParser
     private $_sFeedUrl;
     private $_sStartTime;
     private $_sEndTime;
-    private $_iMaxEvent;
+    private $_iMaxResult;
 
     public function __construct()
     {
@@ -56,9 +56,14 @@ class gcParser
         $this->_sStartTime = $sStartTime;
     }
 
-    public function sEndTime($sEndTime)
+    public function setEndTime($sEndTime)
     {
         $this->_sEndTime = $sEndTime;
+    }
+
+    public function setMaxResult($iMaxResult)
+    {
+        $this->_iMaxResult = $iMaxResult;
     }
 
     private function _getCurlRequest( $sUrl , $param = null)
@@ -81,8 +86,12 @@ class gcParser
 
     private function _feedUrlConstructor()
     {
+        $sQryStart = ( !empty ( $this->_sStartTime ) ) ? "&start-min=" . $this->_sStartTime : '';
+        $sQryEnd = ( !empty ( $this->_sEndTime ) ) ? "&start-max=" . $this->_sEndTime : '';
+        $iMaxResult = ( !$this->_iMaxResult ||  $this->_iMaxResult == 0 ) ? 25 : $this->_iMaxResult;
+
         $sGcParam = "&fields=entry(title,link[@rel='alternate'],content,gd:where,gd:when,gCal:uid)";
-        $sFeedEntry = "?alt=json&singleevents=true&orderby=starttime&max-results=25";
+        $sFeedEntry = "?alt=json&singleevents=true&sortorder=ascending&orderby=starttime&max-results=$iMaxResult";
         $sQryParams = $sFeedEntry . $sGcParam;
 
         $aParseUrl = parse_url ( $this->_sFeedUrl );

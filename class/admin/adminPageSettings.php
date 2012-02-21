@@ -17,14 +17,6 @@ class adminPageSettings extends Controller_Admin
 
         $aResult = common()->modelAdmin()->execGetSettings();
 
-
-        $oGcParser = new gcParser();
-
-        $oGcParser->setFeedUrl($aResult['feed_url']);
-        $aFeed = $oGcParser->init();
-
-        usbuilder()->vd( $aFeed);
-
         $this->assign('sPrefix',$this->_sPrefix);
         $this->assign('sImagePath',$this->_sImagePath);
 

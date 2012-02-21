@@ -10,5 +10,5 @@
 .googlecalendar_wrapper .googlecalendar_calendar{width:100%;text-align:center;margin:0;border-spacing:0;border:solid 1px #ccc;border-bottom:0;background:whitesmoke;}
 .googlecalendar_wrapper .googlecalendar_calendar thead tr th{padding:2%;border-spacing:0;border-right:solid 1px #ccc;border-bottom:solid 1px #ccc}
 .googlecalendar_wrapper .googlecalendar_calendar tbody tr td{padding:2%;border-bottom:solid 1px #ccc;border-right:solid 1px #ccc;font-size:11px;}
-.googlecalendar_wrapper .googlecalendar_calendar tbody tr td a{text-decoration:none;color:red;font-weight:bold;}
+.googlecalendar_wrapper .googlecalendar_calendar tbody tr td a{text-decoration:none;white;font-weight:bold;}
 .googlecalendar_wrapper .googlecalendar_calendar tbody tr td a:hover{color:#333333;font-weight:bold;}

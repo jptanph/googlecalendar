@@ -85,7 +85,7 @@ var frontPageGooglecalendar = {
                                 }
                             });
 
-                            sCalendar += "<td><a href='#none'>" + ( i - start_day + 1 ) + " </a> <span style='color:blue;font-weight:bold;'>" + iTotalEvent + "</span></td>\n";                                                            
+                            sCalendar += "<td style='background:" + ( ( iTotalEvent != 0 ) ? 'gray' : '')  + "'><a href='#none'>" + ( i - start_day + 1 ) + " </a> <span>" + iTotalEvent + "</span></td>\n";                                                            
                         }
                         
                         if ( ( i % 7 ) == 6 )
