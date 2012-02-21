@@ -14,8 +14,8 @@ class apiFrontCalendarData extends Controller_Api
 
         $aResult = common()->modelFront()->execGetSettings();
         $oGcParser->setMaxResult($aResult['max_event']);
-        $oGcParser->setStartTime($aResult['start_time']);
-        $oGcParser->setEndTime($aResult['end_time']);
+        $oGcParser->setStartTime($aResult['ut_startdate']);
+        $oGcParser->setEndTime($aResult['ut_enddate']);
         $oGcParser->setFeedUrl($aResult['feed_url']);
         $aFeed = $oGcParser->init();
 

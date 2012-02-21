@@ -38,7 +38,7 @@ class gcParser
                 'when' => $rows['gd$when'],
                 'start_time' => $this->_isoToUts($rows['gd$when'][0]['startTime']),
                 'end_time' => $this->_isoToUts($rows['gd$when'][0]['endTime']),
-                'e_time' => date('g:i a', $this->_isoToUts($rows['gd$when'][0]['endTime'])),
+                'ut_time' => "&start-min=" . date( 'Y-m-d\TH:i:s' , $this->_sStartTime ),
                 'calid' => $rows['gCal$uid']
             );
         }
@@ -86,12 +86,12 @@ class gcParser
 
     private function _feedUrlConstructor()
     {
-        $sQryStart = ( !empty ( $this->_sStartTime ) ) ? "&start-min=" . $this->_sStartTime : '';
-        $sQryEnd = ( !empty ( $this->_sEndTime ) ) ? "&start-max=" . $this->_sEndTime : '';
+        $sQryStart = ( !empty ( $this->_sStartTime ) ) ? "&start-min=" . date( 'Y-m-d\TH:i:s' , $this->_sStartTime ) : '';
+        $sQryEnd = ( !empty ( $this->_sEndTime ) ) ? "&start-max=" . date( 'Y-m-d\TH:i:s' , $this->_sEndTime ) : '';
         $iMaxResult = ( !$this->_iMaxResult ||  $this->_iMaxResult == 0 ) ? 25 : $this->_iMaxResult;
 
         $sGcParam = "&fields=entry(title,link[@rel='alternate'],content,gd:where,gd:when,gCal:uid)";
-        $sFeedEntry = "?alt=json&singleevents=true&sortorder=ascending&orderby=starttime&max-results=$iMaxResult";
+        $sFeedEntry = "?alt=json&singleevents=true{$sQryStart}{$sQryEnd}&sortorder=ascending&orderby=starttime&max-results=$iMaxResult";
         $sQryParams = $sFeedEntry . $sGcParam;
 
         $aParseUrl = parse_url ( $this->_sFeedUrl );
