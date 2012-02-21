@@ -38,7 +38,8 @@ class gcParser
                 'when' => $rows['gd$when'],
                 'start_time' => $this->_isoToUts($rows['gd$when'][0]['startTime']),
                 'end_time' => $this->_isoToUts($rows['gd$when'][0]['endTime']),
-                'calid' => $rows['gCal$uid'],
+                'e_time' => date('g:i a', $this->_isoToUts($rows['gd$when'][0]['endTime'])),
+                'calid' => $rows['gCal$uid']
             );
         }
 
@@ -81,7 +82,7 @@ class gcParser
     private function _feedUrlConstructor()
     {
         $sGcParam = "&fields=entry(title,link[@rel='alternate'],content,gd:where,gd:when,gCal:uid)";
-        $sFeedEntry = "?alt=json&singleevents=false&orderby=starttime&max-results=25";
+        $sFeedEntry = "?alt=json&singleevents=true&orderby=starttime&max-results=25";
         $sQryParams = $sFeedEntry . $sGcParam;
 
         $aParseUrl = parse_url ( $this->_sFeedUrl );

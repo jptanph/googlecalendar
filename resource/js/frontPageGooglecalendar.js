@@ -8,6 +8,8 @@ var frontPageGooglecalendar = {
     init : function(iMonth,iYear){
         var sCalendar = "";
         var aDays = ['S','M','T','W','T','F','S'];
+        var aDaysTitle = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        
         var data;
         $('.left,.right').css({'visibility':'hidden'});
         var options = {
@@ -20,7 +22,7 @@ var frontPageGooglecalendar = {
             },success : function(server_response){
                 data = server_response.Data;
                 
-               // console.log(data.event_info);
+                console.log(data.event_info);
                 
                 total_days = data.start_day + data.max_day;
                 start_day = data.start_day;
@@ -47,7 +49,7 @@ var frontPageGooglecalendar = {
                 sCalendar += "<thead>";
                 sCalendar += "<tr>";
                     for(i = 0 ; i < aDays.length ; i++){
-                        sCalendar += "<th>";
+                        sCalendar += "<th title='" + aDaysTitle[i] + "'>";
                             sCalendar += aDays[i];
                         sCalendar += "</th>";
                         

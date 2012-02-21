@@ -82,7 +82,16 @@ class apiFrontCalendarData extends Controller_Api
 
         foreach($aFeed as $rows)
         {
-           if(date('Y-m-d', $rows['start_time']) <= $sCurrentDate && date('Y-m-d', $rows['end_time']) >= $sCurrentDate)
+            $sCheckEndTime = date('g:i a', $rows['end_time']);
+
+            $sEndTime = $rows['end_time'];
+
+            if($sCheckEndTime == '12:00 am')
+            {
+                $sEndTime = ( $sEndTime - 86400 );
+            }
+
+           if(date('Y-m-d', $rows['start_time']) <= $sCurrentDate && date('Y-m-d', $sEndTime) >= $sCurrentDate)
            {
                 $iTotal += 1;
            }
