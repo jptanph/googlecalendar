@@ -4,6 +4,7 @@ require_once('gcParser.php');
 
 class apiFrontCalendarData extends Controller_Api
 {
+    private $_sEndTime;
     public function post($aArgs)
     {
         usbuilder()->init($this, $aArgs);
@@ -13,6 +14,7 @@ class apiFrontCalendarData extends Controller_Api
         $oGcParser = new gcParser();
 
         $aResult = common()->modelFront()->execGetSettings();
+        $this->_sEndTime = $aResult['ut_enddate'];
         $oGcParser->setMaxResult($aResult['max_event']);
         $oGcParser->setStartTime($aResult['ut_startdate']);
         $oGcParser->setEndTime($aResult['ut_enddate']);
@@ -61,7 +63,8 @@ class apiFrontCalendarData extends Controller_Api
             {
                 $iDay = ( $i - $sStartDay + 1 );
                 $sCurrentDate = $sYearMonth . str_pad( $iDay , 2 , '0' , STR_PAD_LEFT );
-                $aEvent[] = array('loop_date'=>$sCurrentDate,'total_sched' => $this->_tempArrayEventDb($aFeed,$sCurrentDate));
+                $aEventInfo = $this->_tempArrayEventDb($aFeed,$sCurrentDate);
+                $aEvent[] = array('loop_date'=>$sCurrentDate,'total_sched' => $aEventInfo['total_event'],'event_details' => $aEventInfo['event_details']);
             }
         }
 
@@ -82,6 +85,7 @@ class apiFrontCalendarData extends Controller_Api
     private function _tempArrayEventDb($aFeed,$sCurrentDate)
     {
         $iTotal = 0;
+        $aData = array();
 
         foreach($aFeed as $rows)
         {
@@ -94,11 +98,20 @@ class apiFrontCalendarData extends Controller_Api
                 $sEndTime = ( $sEndTime - 86400 );
             }
 
-           if(date('Y-m-d', $rows['start_time']) <= $sCurrentDate && date('Y-m-d', $sEndTime) >= $sCurrentDate)
+           if(date('Y-m-d', $rows['start_time']) <= $sCurrentDate && date('Y-m-d', $sEndTime) >= $sCurrentDate && date('Y-m-d', $this->_sEndTime)>=$sCurrentDate)
            {
-                $iTotal += 1;
+               $aData['total_event'] += 1 ;
+               $aData['event_details'][] = array(
+                   'title' => $rows['title'],
+                   'content' => $rows['content'],
+                   'event_link' => $rows['event_link']
+               );
+           }
+           else
+           {
+               $aData['total_event'] += 0 ;
            }
         }
-        return $iTotal;
+        return $aData;
     }
 }
