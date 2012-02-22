@@ -60,7 +60,7 @@ var frontPageGooglecalendar = {
                 sCalendar += "</tr>";
                 sCalendar += "</thead>";
                 sCalendar += "<tbody>";
-                var iTotalEvent;
+                var iTotalEvent = 0;
                 var sMonth = ( this_month_num > 9 ) ? this_month_num : '0'+this_month_num;
                 var sYearMonth = this_year+'-'+ sMonth+'-';
                 frontPageGooglecalendar.aLoopDate.length = 0;
@@ -79,14 +79,45 @@ var frontPageGooglecalendar = {
                         {   
                             
                             sLoopDate = ( ( i - start_day + 1 ) < 10 ) ?"0"+( i - start_day + 1 ) : ( i - start_day + 1 );
-                            sThisDate = sYearMonth+sLoopDate;
-                            frontPageGooglecalendar.aLoopDate.push(sThisDate);
+                           
+                            //frontPageGooglecalendar.aLoopDate.push(sThisDate);
+                            
+                           
+                            $.each(data.event_info,function(index,value){
+                                sThisDate = sYearMonth+sLoopDate;
+                                if(value.event_details){
+                                   
+                                    if(sThisDate == value.loop_date){                 
+                                        iTotalEvent = ( value.total_sched == 0 ) ? '' : value.total_sched;
+                                        sEventInfo += "<div id='googlecalendar_event_wrapper" + ( i - start_day + 1 ) + "' style='display:none;padding:0 !important;'>\n";
+                                        sEventInfo += "  <div class='googlecalendar_event_wrapper'>\n";
+                                        if(iTotalEvent > 0 ){
+                                          
+                                             $.each(value.event_details,function(ind,val){
+                                                sEventInfo += "  <div class='googlecalendar_event_container'>\n";
+                                                sEventInfo += "      <div class='googlecalendar_event_title'><h2>" + val.title + "</h2></div>\n";
+                                                sEventInfo += (val.start_time=='') ? '' : "      <p class='googlecalendar_event_content'><span class='googlecalendar_label'>Start : </span><span class='googlecalendar_info'>" + val.start_time +  " </span></p>\n";
+                                                sEventInfo += (val.end_time=='') ? '' : "      <p class='googlecalendar_event_content'><span class='googlecalendar_label'>End : </span><span class='googlecalendar_info'>" + val.end_time + "</span></p>\n";
+                                                sEventInfo += (val.location=='') ? '' : "      <p class='googlecalendar_event_content'><span class='googlecalendar_label'>Location : </span><span class='googlecalendar_info'>" + val.location + "</span></p>\n";
+                                                sEventInfo += (val.content=='') ? '' : "      <p class='googlecalendar_event_content'><span class='googlecalendar_label'>Description : </span><span class='googlecalendar_info'>" + val.content + "</span></p>\n";
+                                                sEventInfo += "      <p class='googlecalendar_event_content'><a href='#'>See more details..</a></p>\n";
+                                                sEventInfo += "  </div>\n";                                   
+                                            });
+                                       }
+                                        //$("#google_calendar_event_only"+i).html(iTotalEvent).addClass('googlecalendar_event_count');
+                                        sEventInfo += "  </div>\n";                           
+                                        sEventInfo += "</div>\n";
+                                        
+                                    }
+
+                                }
+                               
+                             });
                              
                             
-                                
                             sCalendar += "<td style='background:" + ( ( iTotalEvent != 0 ) ? 'Lavender' : '')  + "'>\n";
                             sCalendar += "  <div style='position:relative;width:100%;'>";
-                            sCalendar += "      <div id='google_calendar_event_only" +( i - start_day + 1 ) + "'style='cursor:pointer;position:absolute;right:0;top:0;font-size:8px;margin-right:2px;display:inline-block;color:black;'></div>";                                
+                            sCalendar += "      <div id='google_calendar_event_only" +( i - start_day + 1 ) + "' style='cursor:pointer;position:absolute;right:0;top:0;font-size:8px;margin-right:2px;display:inline-block;color:black;' class='" + ( (iTotalEvent > 0) ? 'googlecalendar_event_count' : '') +"'>" + ( (iTotalEvent > 0) ? iTotalEvent : '') + "</div>";                                
                             sCalendar += "      <div style='margin:9px 0 9px 0;display:inline-block'>" + ( i - start_day + 1 ) + "</div>";
                             sCalendar += "  </div>";
                             sCalendar += "</td>\n";                                                            
@@ -102,7 +133,8 @@ var frontPageGooglecalendar = {
                 sCalendar += "</tbody>";                
                 sCalendar += "</table>";
                 $("#googlecalendar_content").html(sCalendar);
-                frontPageGooglecalendar.execEventDetails(data.event_info);
+                $(".event_details").html(sEventInfo);
+                //frontPageGooglecalendar.execEventDetails(data.event_info);
                 frontPageGooglecalendar.execQtip();
                 
             }            
@@ -155,8 +187,7 @@ var frontPageGooglecalendar = {
                                    sEventInfo += (val.location=='') ? '' : "      <p class='googlecalendar_event_content'><span class='googlecalendar_label'>Location : </span><span class='googlecalendar_info'>" + val.location + "</span></p>\n";
                                    sEventInfo += (val.content=='') ? '' : "      <p class='googlecalendar_event_content'><span class='googlecalendar_label'>Description : </span><span class='googlecalendar_info'>" + val.content + "</span></p>\n";
                                    sEventInfo += "      <p class='googlecalendar_event_content'><a href='#'>See more details..</a></p>\n";
-                                   sEventInfo += "  </div>\n";
-                                   
+                                   sEventInfo += "  </div>\n";                                   
                                });
                           }
                            sEventInfo += "  </div>\n";                           
