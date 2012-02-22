@@ -6,9 +6,42 @@ $(document).ready(function(){
 var adminPageSettings = {
         
     execSave : function(){
-        var start_date = $("#googlecalendar_start_date").val();
-        alert(start_date)
-        if(oValidator.formName.getMessage('googlecalendar_settings_form')){
+        var start_date = $("#googlecalendar_start_date");
+        var start_time = $("#googlecalendar_start_time");
+        var end_date = $("#googlecalendar_end_date");
+        var end_time = $("#googlecalendar_end_time");
+        var error = 0;
+        
+        var sdatetime = start_date.val() + ' '+start_time.val() + ':00';
+        var edatetime = end_date.val() + ' '+ end_time.val() + ':00';
+        
+        var stime = start_time.val().substr(0,2);
+        var etime = end_time.val().substr(0,2);
+
+        stime = parseInt(stime);
+        etime = parseInt(etime);
+        
+
+        
+        if(Date.parse(sdatetime) > Date.parse(edatetime)){
+            start_date.css({'border':'solid 2px #DC4E22'});
+            end_date.css({'border':'solid 2px #DC4E22'});      
+            error += 1;
+            
+            if(stime > etime){
+                $('.error_time').show();
+                error += 1;
+            }else{
+                $('.error_time').hide();
+            }
+            
+        }else{
+            start_date.css({'border':'solid 1px #CCC'});
+            end_date.css({'border':'solid 1px #CCC'});            
+        }
+        
+
+        if(error == 0 && oValidator.formName.getMessage('googlecalendar_settings_form')){
             document.googlecalendar_settings_form.submit();
         }   
     },execReset : function(){

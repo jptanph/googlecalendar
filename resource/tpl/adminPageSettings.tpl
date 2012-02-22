@@ -30,6 +30,8 @@
                          <option id='<?php echo $i;?>' value='<?php echo str_pad($i,2,'0',STR_PAD_LEFT);?>:00' <?php if($i == $iStartTime){?>selected='selected'<?php }?>><?php echo str_pad($i,2,'0',STR_PAD_LEFT);?>:00</option>
                      <?php }?>
                  </select>
+                <span class='error_time' style='display:none'>Invalid time.</span>
+
 			    <p>
 			        The point in time at which to start retrieving events.
 			    </p>
@@ -46,6 +48,7 @@
                          <option id='<?php echo $i;?>' value='<?php echo str_pad($i,2,'0',STR_PAD_LEFT);?>:00'  <?php if($i == $iEndTime){?>selected='selected'<?php }?>><?php echo str_pad($i,2,'0',STR_PAD_LEFT);?>:00</option>
                      <?php }?>
                  </select>
+                 <span class='error_time' style='display:none'>Invalid time.</span>
 			    <p>
                     The point in time at which to stop retrieving events.
 			    </p>
