@@ -137,16 +137,15 @@ var frontPageGooglecalendar = {
         var j = this.aLoopDate.length
         if(data){
             for( i = 0 ; i <= j ; i++ ){
-                alert(frontPageGooglecalendar.aLoopDate[i])
+
                 $.each(data,function(index,value){
                    if(value.event_details){
                       
                        if(frontPageGooglecalendar.aLoopDate[i] == value.loop_date){                 
-                           sEventInfo += "<div id='googlecalendar_event_wrapper" + i + "' style='display:none;padding:0 !important;'>\n";
-                           
-                           sEventInfo += "  <div class='googlecalendar_event_wrapper'>\n";
                            iTotalEvent = ( value.total_sched == 0 ) ? '' : value.total_sched;
-                          if(iTotalEvent > 0 ){
+                           sEventInfo += "<div id='googlecalendar_event_wrapper" + i + "' style='display:none;padding:0 !important;'>\n";
+                           sEventInfo += "  <div class='googlecalendar_event_wrapper'>\n";
+                           if(iTotalEvent > 0 ){
                               
                                 $.each(value.event_details,function(ind,val){
                                    sEventInfo += "  <div class='googlecalendar_event_container'>\n";
@@ -160,13 +159,14 @@ var frontPageGooglecalendar = {
                                    
                                });
                           }
-                           $("#google_calendar_event_only"+i).html(iTotalEvent).addClass('googlecalendar_event_count');
                            sEventInfo += "  </div>\n";                           
                            sEventInfo += "</div>\n";
                        }
 
                    }
+                  
                 });
+                $("#google_calendar_event_only"+i).html(iTotalEvent).addClass('googlecalendar_event_count');
             }
             $(".event_details").html(sEventInfo);
             
