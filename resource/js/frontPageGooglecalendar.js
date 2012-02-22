@@ -134,29 +134,32 @@ var frontPageGooglecalendar = {
         console.log(data);
         var sEventInfo = "";
         var iTotalEvent = 0;
-        j = this.aLoopDate.length
+        var j = this.aLoopDate.length
         if(data){
-            for( i = 1 ; i <= j ; i++ ){
-                
+            for( i = 0 ; i <= j ; i++ ){
+                alert(frontPageGooglecalendar.aLoopDate[i])
                 $.each(data,function(index,value){
                    if(value.event_details){
+                      
                        if(frontPageGooglecalendar.aLoopDate[i] == value.loop_date){                 
                            sEventInfo += "<div id='googlecalendar_event_wrapper" + i + "' style='display:none;padding:0 !important;'>\n";
                            
                            sEventInfo += "  <div class='googlecalendar_event_wrapper'>\n";
-                           iTotalEvent = value.total_sched;
-                          
-                           $.each(value.event_details,function(ind,val){
-                               sEventInfo += "  <div class='googlecalendar_event_container'>\n";
-                               sEventInfo += "      <div class='googlecalendar_event_title'><h2>" + val.title + "</h2></div>\n";
-                               sEventInfo += (val.start_time=='') ? '' : "      <p class='googlecalendar_event_content'><span class='googlecalendar_label'>Start : </span><span class='googlecalendar_info'>" + val.start_time +  " </span></p>\n";
-                               sEventInfo += (val.end_time=='') ? '' : "      <p class='googlecalendar_event_content'><span class='googlecalendar_label'>End : </span><span class='googlecalendar_info'>" + val.end_time + "</span></p>\n";
-                               sEventInfo += (val.location=='') ? '' : "      <p class='googlecalendar_event_content'><span class='googlecalendar_label'>Location : </span><span class='googlecalendar_info'>" + val.location + "</span></p>\n";
-                               sEventInfo += (val.content=='') ? '' : "      <p class='googlecalendar_event_content'><span class='googlecalendar_label'>Description : </span><span class='googlecalendar_info'>" + val.content + "</span></p>\n";
-                               sEventInfo += "      <p class='googlecalendar_event_content'><a href='#'>See more details..</a></p>\n";
-                               sEventInfo += "  </div>\n";
-                               
-                           });
+                           iTotalEvent = ( value.total_sched == 0 ) ? '' : value.total_sched;
+                          if(iTotalEvent > 0 ){
+                              
+                                $.each(value.event_details,function(ind,val){
+                                   sEventInfo += "  <div class='googlecalendar_event_container'>\n";
+                                   sEventInfo += "      <div class='googlecalendar_event_title'><h2>" + val.title + "</h2></div>\n";
+                                   sEventInfo += (val.start_time=='') ? '' : "      <p class='googlecalendar_event_content'><span class='googlecalendar_label'>Start : </span><span class='googlecalendar_info'>" + val.start_time +  " </span></p>\n";
+                                   sEventInfo += (val.end_time=='') ? '' : "      <p class='googlecalendar_event_content'><span class='googlecalendar_label'>End : </span><span class='googlecalendar_info'>" + val.end_time + "</span></p>\n";
+                                   sEventInfo += (val.location=='') ? '' : "      <p class='googlecalendar_event_content'><span class='googlecalendar_label'>Location : </span><span class='googlecalendar_info'>" + val.location + "</span></p>\n";
+                                   sEventInfo += (val.content=='') ? '' : "      <p class='googlecalendar_event_content'><span class='googlecalendar_label'>Description : </span><span class='googlecalendar_info'>" + val.content + "</span></p>\n";
+                                   sEventInfo += "      <p class='googlecalendar_event_content'><a href='#'>See more details..</a></p>\n";
+                                   sEventInfo += "  </div>\n";
+                                   
+                               });
+                          }
                            $("#google_calendar_event_only"+i).html(iTotalEvent).addClass('googlecalendar_event_count');
                            sEventInfo += "  </div>\n";                           
                            sEventInfo += "</div>\n";
