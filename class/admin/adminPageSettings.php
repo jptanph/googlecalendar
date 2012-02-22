@@ -17,6 +17,17 @@ class adminPageSettings extends Controller_Admin
 
         $aResult = common()->modelAdmin()->execGetSettings();
 
+        $oGcParser = new gcParser();
+
+       // $aResult = common()->modelFront()->execGetSettings();
+        $this->_sEndTime = $aResult['ut_enddate'];
+        $oGcParser->setMaxResult($aResult['max_event']);
+        $oGcParser->setStartTime($aResult['ut_startdate']);
+        $oGcParser->setEndTime($aResult['ut_enddate']);
+        $oGcParser->setFeedUrl($aResult['feed_url']);
+        $aFeed = $oGcParser->init();
+        usbuilder()->vd($aFeed);
+
         $this->assign('sPrefix',$this->_sPrefix);
         $this->assign('sImagePath',$this->_sImagePath);
 

@@ -104,7 +104,10 @@ class apiFrontCalendarData extends Controller_Api
                $aData['event_details'][] = array(
                    'title' => $rows['title'],
                    'content' => $rows['content'],
-                   'event_link' => $rows['event_link']
+                   'location' => (isset($rows['where'][0]['valueString'])) ? $rows['where'][0]['valueString'] : '' ,
+                   'event_link' => $rows['event_link'],
+                   'start_time' => date('g:i a', $rows['start_time']),
+                   'end_time' => date('M d, Y - g:i a', $sEndTime),
                );
            }
            else

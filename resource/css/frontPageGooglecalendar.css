@@ -13,4 +13,14 @@
 .googlecalendar_wrapper .googlecalendar_calendar tbody tr td a{text-decoration:none;white;font-weight:bold;}
 .googlecalendar_wrapper .googlecalendar_calendar tbody tr td a:hover{color:#333333;font-weight:bold;}
 
-.googlecalendar_event_container{border:solid 1px red}
+/**<event_details>**/
+.googlecalendar_event_wrapper{border:solid 1px #CCC;display:inline-block;font-size:10px;font-family:arial;width:100%;background:white;}
+.googlecalendar_event_wrapper .googlecalendar_event_container{display:inline-block;padding:0 2px 0 0;}
+.googlecalendar_event_wrapper .googlecalendar_event_container .googlecalendar_event_title{margin:0;display:inline-block;padding:2px 0 2px 2px;width:100%;background:gray;color:white;}
+.googlecalendar_event_wrapper .googlecalendar_event_container .googlecalendar_event_title h2{font-size:10px;padding:0 0 0 3px;margin:0;}
+.googlecalendar_event_wrapper .googlecalendar_event_container .googlecalendar_event_content{margin:0 0 0 0;display:inline-block;padding:0;width:100%;}
+.googlecalendar_event_wrapper .googlecalendar_event_container .googlecalendar_event_content .googlecalendar_label{width:70px;display:inline-block;margin-left:3px;}
+.googlecalendar_event_wrapper .googlecalendar_event_container .googlecalendar_event_content .googlecalendar_info{word-wrap:break-word !important;margin-left:6px;}
+.googlecalendar_event_wrapper .googlecalendar_event_container .googlecalendar_event_content a{color:gray;display:inline-block;text-decoration:none;margin-left:3px;}
+.googlecalendar_event_wrapper .googlecalendar_event_container .googlecalendar_event_content a:hover{color:#333333;}
+/**</event_details>**/
