@@ -8,8 +8,8 @@ class modelAdmin extends Model
     public function execGetSettings()
     {
         $sSql = "SELECT *,
-            DATE_FORMAT(FROM_UNIXTIME(start_date),'%Y/%d/%m') as sdate,
-            DATE_FORMAT(FROM_UNIXTIME(end_date),'%Y/%d/%m') as edate,
+            DATE_FORMAT(FROM_UNIXTIME(start_date),'%Y/%m/%d') as sdate,
+            DATE_FORMAT(FROM_UNIXTIME(end_date),'%Y/%m/%d') as edate,
             DATE_FORMAT(FROM_UNIXTIME(start_date),'%H') as start_time,
             DATE_FORMAT(FROM_UNIXTIME(end_date),'%H') as end_time,
             start_date AS ut_startdate,
@@ -24,7 +24,7 @@ class modelAdmin extends Model
             "(feed_url,start_date,end_date,max_event,event_style,date_created)
             VALUES
             (
-            '{$aArgs['feed_url']}',
+            '" .trim($aArgs['feed_url']) . "',
             UNIX_TIMESTAMP('{$aArgs['start_date']} {$aArgs['start_time']}:00'),
             UNIX_TIMESTAMP('{$aArgs['end_date']} {$aArgs['end_time']}:00'),
             '{$aArgs['max_event']}',
@@ -39,7 +39,7 @@ class modelAdmin extends Model
     public function execUpdate($aArgs)
     {
         $sSql = "UPDATE " . GOOGLECALENDAR_SETTINGS . " SET
-        feed_url = '{$aArgs['feed_url']}',
+        feed_url = '" . $aArgs['feed_url'] . "',
         start_date = UNIX_TIMESTAMP('{$aArgs['start_date']} {$aArgs['start_time']}:00'),
         end_date = UNIX_TIMESTAMP('{$aArgs['end_date']} {$aArgs['end_time']}:00'),
         max_event = '{$aArgs['max_event']}',

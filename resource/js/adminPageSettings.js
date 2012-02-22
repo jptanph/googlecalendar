@@ -6,6 +6,8 @@ $(document).ready(function(){
 var adminPageSettings = {
         
     execSave : function(){
+        var start_date = $("#googlecalendar_start_date").val();
+        alert(start_date)
         if(oValidator.formName.getMessage('googlecalendar_settings_form')){
             document.googlecalendar_settings_form.submit();
         }   

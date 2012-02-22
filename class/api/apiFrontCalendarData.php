@@ -50,24 +50,25 @@ class apiFrontCalendarData extends Controller_Api
         $sYearMonth = $sYear . '-' . $sMonth . '-';
         $iTotalEvent = 0;
 
-        for( $i = 0 ; $i < ($iMaxDay + $sStartDay ) ; $i++)
-        {
-            if( ( $i % 7 ) == 0 )
-            {}
-
-            if($i < $sStartDay)
+            for( $i = 0 ; $i < ($iMaxDay + $sStartDay ) ; $i++)
             {
+                if( ( $i % 7 ) == 0 )
+                {}
 
-            }
-            else
-            {
-                $iDay = ( $i - $sStartDay + 1 );
-                $sCurrentDate = $sYearMonth . str_pad( $iDay , 2 , '0' , STR_PAD_LEFT );
-                $aEventInfo = $this->_tempArrayEventDb($aFeed,$sCurrentDate);
-                $aEvent[] = array('loop_date'=>$sCurrentDate,'total_sched' => $aEventInfo['total_event'],'event_details' => $aEventInfo['event_details']);
-            }
-        }
+                if($i < $sStartDay)
+                {
 
+                }
+                else
+                {
+                    $iDay = ( $i - $sStartDay + 1 );
+                    $sCurrentDate = $sYearMonth . str_pad( $iDay , 2 , '0' , STR_PAD_LEFT );
+                    $aEventInfo = (!$this->_tempArrayEventDb($aFeed,$sCurrentDate) ) ? false : $this->_tempArrayEventDb($aFeed,$sCurrentDate);
+                    $aEvent[] = array('loop_date'=>$sCurrentDate,'total_sched' => (!$aEventInfo) ? 0 : $aEventInfo['total_event'],'event_details' => (!$aEventInfo) ? null :  $aEventInfo['event_details']);
+                }
+            }
+
+        $aData['today'] = date('Y-m-d',time());
         $aData['next_year'] = (int)  $sNextYear;
         $aData['prev_year'] =  (int) $sPrevYear;
         $aData['next_month'] =  (int) $sNextMonth;
@@ -87,34 +88,38 @@ class apiFrontCalendarData extends Controller_Api
         $iTotal = 0;
         $aData = array();
 
-        foreach($aFeed as $rows)
+        if($aFeed)
         {
-            $sCheckEndTime = date('g:i a', $rows['end_time']);
-
-            $sEndTime = $rows['end_time'];
-
-            if($sCheckEndTime == '12:00 am')
+            foreach($aFeed as $rows)
             {
-                $sEndTime = ( $sEndTime - 86400 );
-            }
+                $sCheckEndTime = date('g:i a', $rows['end_time']);
 
-           if(date('Y-m-d', $rows['start_time']) <= $sCurrentDate && date('Y-m-d', $sEndTime) >= $sCurrentDate && date('Y-m-d', $this->_sEndTime)>=$sCurrentDate)
-           {
-               $aData['total_event'] += 1 ;
-               $aData['event_details'][] = array(
-                   'title' => $rows['title'],
-                   'content' => $rows['content'],
-                   'location' => (isset($rows['where'][0]['valueString'])) ? $rows['where'][0]['valueString'] : '' ,
-                   'event_link' => $rows['event_link'],
-                   'start_time' => date('g:i a', $rows['start_time']),
-                   'end_time' => date('M d, Y - g:i a', $sEndTime),
-               );
-           }
-           else
-           {
-               $aData['total_event'] += 0 ;
-           }
+                $sEndTime = $rows['end_time'];
+
+                if($sCheckEndTime == '12:00 am')
+                {
+                    $sEndTime = ( $sEndTime - 86400 );
+                }
+
+               if(date('Y-m-d', $rows['start_time']) <= $sCurrentDate && date('Y-m-d', $sEndTime) >= $sCurrentDate && date('Y-m-d', $this->_sEndTime)>=$sCurrentDate)
+               {
+                   $aData['total_event'] += 1 ;
+                   $aData['event_details'][] = array(
+                       'title' => $rows['title'],
+                       'content' => $rows['content'],
+                       'location' => (isset($rows['where'][0]['valueString'])) ? $rows['where'][0]['valueString'] : '' ,
+                       'event_link' => $rows['event_link'],
+                       'start_time' => date('g:i a', $rows['start_time']),
+                       'end_time' => date('M d, Y - g:i a', $sEndTime),
+                   );
+               }
+               else
+               {
+                   $aData['total_event'] += 0 ;
+               }
+            }
+            return $aData;
         }
-        return $aData;
+        return false;
     }
 }

@@ -61,15 +61,6 @@
 			    </p>
 			</td>
 		</tr>
-		<tr>
-			<th><label for="show_html_value">Event Display Editor : </label></th>
-			<td>
-			    <textarea style='resize:none;height:100px;padding:6px' name='event_style' id='<?php echo $sPrefix?>event_style'><?php echo $sEventStyle;?></textarea>
-			    <p>
-			        You can customized the appearance of the calendar event.
-			    </p>
-			</td>
-		</tr>
 	</table>
 </form>
 <div class="tbl_lb_wide_btn">

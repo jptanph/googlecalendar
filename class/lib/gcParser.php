@@ -25,25 +25,31 @@ class gcParser
         $aData = array();
         $sFeedUrl = $this->_feedUrlConstructor();
         $oGcJson = $this->_getCurlRequest($sFeedUrl);
+
         $aJson = json_decode($oGcJson,TRUE);
         $aFeed = $aJson['feed']['entry'];
-
-        foreach($aFeed as $rows)
+        if($aFeed)
         {
-            $aData[] = array(
-                'title' => $rows['title']['$t'],
-                'content' => $rows['content']['$t'],
-                'event_link' => $rows['link'][0]['href'],
-                'where' => $rows['gd$where'],
-                'when' => $rows['gd$when'],
-                'start_time' => $this->_isoToUts($rows['gd$when'][0]['startTime']),
-                'end_time' => $this->_isoToUts($rows['gd$when'][0]['endTime']),
-                'ut_time' => "&start-min=" . date( 'Y-m-d\TH:i:s' , $this->_sStartTime ),
-                'calid' => $rows['gCal$uid']
-            );
-        }
 
-        return $aData;
+
+            foreach($aFeed as $rows)
+            {
+                $aData[] = array(
+                    'title' => $rows['title']['$t'],
+                    'content' => $rows['content']['$t'],
+                    'event_link' => $rows['link'][0]['href'],
+                    'where' => $rows['gd$where'],
+                    'when' => $rows['gd$when'],
+                    'start_time' => $this->_isoToUts($rows['gd$when'][0]['startTime']),
+                    'end_time' => $this->_isoToUts($rows['gd$when'][0]['endTime']),
+                    'ut_time' => "&start-min=" . date( 'Y-m-d\TH:i:s' , $this->_sStartTime ),
+                    'calid' => $rows['gCal$uid']
+                );
+            }
+            return $aData;
+        }
+        return false;
+
     }
 
     public function setFeedUrl($sFeedUrl)
