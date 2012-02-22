@@ -43,9 +43,9 @@ var frontPageGooglecalendar = {
                 
                 sCalendar += "<div class='googlecalendar_navs'>";
                 sCalendar +="   <ul>";
-                sCalendar +="     <li><a href='#' title='prebv' id='testtools' class='left' onclick='frontPageGooglecalendar.init(" + prev_month + "," + prev_year + ")'>&laquo;</a></li>";
+                sCalendar +="     <li><a href='#none' title='prebv' id='testtools' class='left' onclick='frontPageGooglecalendar.init(" + prev_month + "," + prev_year + ")'>&laquo;</a></li>";
                 sCalendar +="     <li ><center>" + this_month + " " + this_year + "</center></li>";
-                sCalendar +="     <li><a href='#' class='right' onclick='frontPageGooglecalendar.init(" + next_month + "," + next_year + ")'>&raquo;</a></li>";
+                sCalendar +="     <li><a href='#none' class='right' onclick='frontPageGooglecalendar.init(" + next_month + "," + next_year + ")'>&raquo;</a></li>";
                 sCalendar +="   </ul>";
                 sCalendar += "</div>";
                 sCalendar += "<table class='googlecalendar_calendar'>";
@@ -87,11 +87,11 @@ var frontPageGooglecalendar = {
                                         iTotalEvent = ( value.total_sched == 0 ) ? 0 : value.total_sched;
                                         
                                         
-                                        
+                                        if(iTotalEvent > 0 ){
                                         sEventInfo += "<div id='googlecalendar_event_wrapper" + ( i - start_day + 1 ) + "' style='display:none;padding:0 !important;'>\n";
                                         sEventInfo += "  <div class='googlecalendar_event_wrapper'>\n";
                                         
-                                        if(iTotalEvent > 0 ){
+                                        
                                           
                                              $.each(value.event_details,function(ind,val){
                                                 sEventInfo += "  <div class='googlecalendar_event_container'>\n";
@@ -139,8 +139,12 @@ var frontPageGooglecalendar = {
         
         $.ajax(options);        
     },execQtip : function(){
-        $('.googlecalendar_event_count').each(function(ind,val){     
-           var sHtml = $('#googlecalendar_event_wrapper'+(ind+1)).html();
+
+        $('.googlecalendar_event_count').each(function(ind,val){
+           sId =  this.id;
+           iId = sId.replace('google_calendar_event_only','');
+           
+           sHtml = $('#googlecalendar_event_wrapper'+$.trim(iId)).html();
 
             $(this).qtip({
               style: { 
