@@ -25,7 +25,7 @@ var frontPageGooglecalendar = {
             },success : function(server_response){
                 data = server_response.Data;
                 
-               //console.log(data.event_info);
+               console.log(data.event_info);
                 
                 total_days = data.start_day + data.max_day;
                 start_day = data.start_day;
@@ -80,17 +80,18 @@ var frontPageGooglecalendar = {
                             
                             sLoopDate = ( ( i - start_day + 1 ) < 10 ) ?"0"+( i - start_day + 1 ) : ( i - start_day + 1 );
                            
-                            //frontPageGooglecalendar.aLoopDate.push(sThisDate);
-                            
-                           
                             $.each(data.event_info,function(index,value){
                                 sThisDate = sYearMonth+sLoopDate;
                                 if(value.event_details){
                                    
-                                    if(sThisDate == value.loop_date){                 
-                                        iTotalEvent = ( value.total_sched == 0 ) ? '' : value.total_sched;
+                                    if(sThisDate == value.loop_date){  
+                                        iTotalEvent = ( value.total_sched == 0 ) ? 0 : value.total_sched;
+                                        
+                                        
+                                        
                                         sEventInfo += "<div id='googlecalendar_event_wrapper" + ( i - start_day + 1 ) + "' style='display:none;padding:0 !important;'>\n";
                                         sEventInfo += "  <div class='googlecalendar_event_wrapper'>\n";
+                                        console.log(iTotalEvent)
                                         if(iTotalEvent > 0 ){
                                           
                                              $.each(value.event_details,function(ind,val){
@@ -104,7 +105,6 @@ var frontPageGooglecalendar = {
                                                 sEventInfo += "  </div>\n";                                   
                                             });
                                        }
-                                        //$("#google_calendar_event_only"+i).html(iTotalEvent).addClass('googlecalendar_event_count');
                                         sEventInfo += "  </div>\n";                           
                                         sEventInfo += "</div>\n";
                                         
@@ -114,10 +114,13 @@ var frontPageGooglecalendar = {
                                
                              });
                              
-                            
-                            sCalendar += "<td style='background:" + ( ( iTotalEvent != 0 ) ? 'Lavender' : '')  + "'>\n";
+                            //alert(iTotalEvent)
+                            sCalendar += "<td style='background:" + ( ( iTotalEvent > 0 ) ? 'Lavender' : '')  + "'>\n";
                             sCalendar += "  <div style='position:relative;width:100%;'>";
-                            sCalendar += "      <div id='google_calendar_event_only" +( i - start_day + 1 ) + "' style='cursor:pointer;position:absolute;right:0;top:0;font-size:8px;margin-right:2px;display:inline-block;color:black;' class='" + ( (iTotalEvent > 0) ? 'googlecalendar_event_count' : '') +"'>" + ( (iTotalEvent > 0) ? iTotalEvent : '') + "</div>";                                
+                            if(iTotalEvent > 0){
+                               // console(iTotalEvent)
+                                sCalendar += "      <div id='google_calendar_event_only" +( i - start_day + 1 ) + "' style='cursor:pointer;position:absolute;right:0;top:0;font-size:8px;margin-right:2px;display:inline-block;color:black;' class='googlecalendar_event_count'>" +iTotalEvent+ "</div>";                                                                
+                            }
                             sCalendar += "      <div style='margin:9px 0 9px 0;display:inline-block'>" + ( i - start_day + 1 ) + "</div>";
                             sCalendar += "  </div>";
                             sCalendar += "</td>\n";                                                            
