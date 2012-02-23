@@ -18,14 +18,14 @@ class adminPageSettings extends Controller_Admin
         $aResult = common()->modelAdmin()->execGetSettings();
         $this->assign('sPrefix',$this->_sPrefix);
         $this->assign('sImagePath',$this->_sImagePath);
-
+        usbuilder()->vd($aResult['end_time']);
         /** for settings value.**/
         $this->assign('iIdx',$aResult['idx']);
         $this->assign('sFeedUrl',ltrim($aResult['feed_url']));
-        $this->assign('sStartDate',$aResult['sdate']);
-        $this->assign('sEndDate',$aResult['edate']);
-        $this->assign('iStartTime',$aResult['start_time']);
-        $this->assign('iEndTime',$aResult['end_time']);
+        $this->assign('sStartDate',($aResult['ut_startdate'] > 0) ? $aResult['sdate'] : '' );
+        $this->assign('sEndDate',($aResult['ut_enddate'] > 0) ? $aResult['edate'] : '');
+        $this->assign('iStartTime',($aResult['ut_enddate'] > 0) ? $aResult['start_time'] : '');
+        $this->assign('iEndTime',($aResult['ut_enddate'] > 0) ? $aResult['end_time'] : '');
 
         $this->assign('iMaxEvent',$aResult['max_event']);
         $this->assign('sEventStyle',$aResult['event_style']);

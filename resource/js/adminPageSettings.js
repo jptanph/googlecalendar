@@ -20,8 +20,20 @@ var adminPageSettings = {
 
         stime = parseInt(stime);
         etime = parseInt(etime);
-        
 
+        
+        if(isNaN(stime)==true){
+            $('#error_stime').show();
+            error += 1;
+        }else{
+            $('#error_stime').hide();            
+        }
+        if(isNaN(etime)==true){
+            $('#error_etime').show();
+            error += 1;
+        }else{
+            $('#error_etime').hide();            
+        }
         
         if(Date.parse(sdatetime) > Date.parse(edatetime)){
             start_date.css({'border':'solid 2px #DC4E22'});
@@ -40,7 +52,6 @@ var adminPageSettings = {
             end_date.css({'border':'solid 1px #CCC'});            
         }
         
-
         if(error == 0 && oValidator.formName.getMessage('googlecalendar_settings_form')){
             document.googlecalendar_settings_form.submit();
         }   
