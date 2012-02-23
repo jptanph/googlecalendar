@@ -8,6 +8,8 @@
 
 /**<close_button>**/
 .googlecalendar_event_close{display:inline-block;background:url(/_sdk/img/googlecalendar/icon_tab_menu_close.gif) left center no-repeat;width:100%;float:right;width:10px;height:10px;margin-bottom:6px;margin-top:5px;margin-right:4px;cursor:pointer;}
+.googlecalendar_event_max{display:inline-block;background:url(/_sdk/img/googlecalendar/tree_p.gif) left center no-repeat;width:100%;float:right;width:10px;height:10px;margin-bottom:6px;margin-top:5px;margin-right:4px;cursor:pointer;}
+.googlecalendar_event_min{display:inline-block;background:url(/_sdk/img/googlecalendar/tree_m.gif) left center no-repeat;width:100%;float:right;width:10px;height:10px;margin-bottom:6px;margin-top:5px;margin-right:4px;cursor:pointer;display:none;}
 /**</close_button>**/
 
 

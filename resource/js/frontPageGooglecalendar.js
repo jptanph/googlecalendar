@@ -94,6 +94,10 @@ var frontPageGooglecalendar = {
                                             if(iTotalEvent > 0 ){
                                             sEventInfo += "<div id='googlecalendar_event_wrapper" + ( i - start_day + 1 ) + "' style='display:none;padding:0 !important;'>\n";
                                             sEventInfo += "  <div class='googlecalendar_event_close' onclick='frontPageGooglecalendar.hideList(" + ( i - start_day + 1 ) +");' title='Close Dialog'></div>\n";
+                                            if(iTotalEvent >= 3){
+                                                sEventInfo += "  <div class='googlecalendar_event_max' onclick='frontPageGooglecalendar.listMax(" + ( i - start_day + 1 ) +");' title='Maximize Dialog'></div>\n";
+                                                sEventInfo += "  <div class='googlecalendar_event_min' onclick='frontPageGooglecalendar.listMin(" + ( i - start_day + 1 ) +");' title='Minimize Dialog'></div>\n";
+                                            }
                                             sEventInfo += "  <div class='googlecalendar_event_wrapper' id='googlecalendar_list_scroll" + ( i - start_day + 1 ) + "' " + ( (iTotalEvent >= 3) ? "style='height:255px;overflow:auto;overflow-x:hidden;'" : '' )+ ">\n";
                                               
                                                  $.each(value.event_details,function(ind,val){
@@ -172,7 +176,7 @@ var frontPageGooglecalendar = {
                   border: {
                       width :2,
                       radius: 3,
-                      color: '#CCC'
+                      color: 'gray'
                    }
               },
               content: sHtml,
@@ -226,6 +230,14 @@ var frontPageGooglecalendar = {
        
     },hideList : function(id){
        $('.googlecalendar_event_count').qtip('hide');
+    },listMax : function(){
+        $('.googlecalendar_event_max').hide();
+        $('.googlecalendar_event_min').show();
+        $('.googlecalendar_event_wrapper').css('height','100%');
+    },listMin : function(){
+        $('.googlecalendar_event_max').show();
+        $('.googlecalendar_event_min').hide();
+        $('.googlecalendar_event_wrapper').css('height','255px');
     }
 
 }
