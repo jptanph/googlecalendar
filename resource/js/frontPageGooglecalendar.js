@@ -93,12 +93,12 @@ var frontPageGooglecalendar = {
                                             
                                             if(iTotalEvent > 0 ){
                                             sEventInfo += "<div id='googlecalendar_event_wrapper" + ( i - start_day + 1 ) + "' style='display:none;padding:0 !important;'>\n";
-                                            sEventInfo += "  <div class='googlecalendar_event_wrapper'>\n";
                                             sEventInfo += "  <div class='googlecalendar_event_close' onclick='frontPageGooglecalendar.hideList(" + ( i - start_day + 1 ) +");' title='Close Dialog'></div>\n";
+                                            sEventInfo += "  <div class='googlecalendar_event_wrapper' id='googlecalendar_list_scroll" + ( i - start_day + 1 ) + "' " + ( (iTotalEvent >= 3) ? "style='height:255px;overflow:auto;overflow-x:hidden;'" : '' )+ ">\n";
                                               
                                                  $.each(value.event_details,function(ind,val){
                                                     sEventInfo += "  <div class='googlecalendar_event_container'>\n";
-                                                    sEventInfo += "      <div class='googlecalendar_event_title'><h2>" + ((val.title=='') ? '(No title)' : val.title ) + "</h2></div>\n";
+                                                    sEventInfo += "      <div class='googlecalendar_event_title'><h2>Title : " + ((val.title=='') ? '(No title)' : val.title ) + "</h2></div>\n";
                                                     sEventInfo += (val.start_time=='') ? '' : "      <p class='googlecalendar_event_content'><span class='googlecalendar_label'>Start : </span><span class='googlecalendar_info'>" + val.start_time +  " </span></p>\n";
                                                     sEventInfo += (val.end_time=='') ? '' : "      <p class='googlecalendar_event_content'><span class='googlecalendar_label'>End : </span><span class='googlecalendar_info'>" + val.end_time + "</span></p>\n";
                                                     sEventInfo += (val.location=='') ? '' : "      <p class='googlecalendar_event_content'><span class='googlecalendar_label'>Location : </span><span class='googlecalendar_info'>" + val.location + "</span></p>\n";
@@ -163,7 +163,7 @@ var frontPageGooglecalendar = {
            iId = sId.replace('google_calendar_event_only','');
            
            sHtml = $('#googlecalendar_event_wrapper'+$.trim(iId)).html();
-
+           
             $(this).qtip({
               style: { 
                   padding : 0,
