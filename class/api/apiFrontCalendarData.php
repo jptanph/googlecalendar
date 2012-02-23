@@ -50,6 +50,10 @@ class apiFrontCalendarData extends Controller_Api
         $sYearMonth = $sYear . '-' . $sMonth . '-';
         $iTotalEvent = 0;
 
+        $iNextMonth = mktime(0,0,0,$iMonth+1,1,$iYear);
+        $aNextMonth = getdate ($iNextMonth);
+        $sLastDay = $aNextMonth['wday'];
+
             for( $i = 0 ; $i < ($iMaxDay + $sStartDay ) ; $i++)
             {
                 if( ( $i % 7 ) == 0 )
@@ -77,6 +81,7 @@ class apiFrontCalendarData extends Controller_Api
         $aData['this_year'] = $aMonthInfo['year'];
         $aData['this_month_num'] = $aMonthInfo['mon'];
 
+        $aData['last_day'] = ((7-$sLastDay)==7) ? 0 : (7-$sLastDay) ;
         $aData['max_day'] = (int) $iMaxDay;
         $aData['start_day'] = (int) $sStartDay;
         $aData['event_info'] = $aEvent;

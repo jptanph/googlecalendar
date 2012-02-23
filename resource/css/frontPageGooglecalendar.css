@@ -23,6 +23,7 @@
 .googlecalendar_wrapper .googlecalendar_calendar tbody tr td .googlecalendar_count_container .googlecalendar_days{color:gray;font-weight:bold;}
 
 /**<event_details>**/
+.googlecalendar_event_wrappers{display:inline-block;font-size:10px;font-family:arial;width:100%;background:white;margin-bottom:5px;font-size:100%;border:solid 1px red;}
 .googlecalendar_event_wrapper{display:inline-block;font-size:10px;font-family:arial;width:100%;background:white;margin-bottom:5px;font-size:100%;}
 .googlecalendar_event_wrapper .googlecalendar_event_container{display:inline-block;padding:0 2px 0 0;}
 .googlecalendar_event_wrapper .googlecalendar_event_container .googlecalendar_event_title{margin:0 0 2px 0;display:inline-block;padding:2px 0 2px 2px;width:100%;background:gray;color:white;}
@@ -35,3 +36,6 @@
 /**</event_details>**/
 
 .googlecalendar_event_count{position:absolute;top:0;right:0;margin-top:5%;margin-right:5%;font-size:70.8%;cursor:pointer;font-weight:bold;color:#DC4E22}
+.googlecalendar_sheight{height:255px;overflow:auto;overflow-x:hidden;}
+.googlecalendar_aheight{height:100%;overflow:auto;overflow-x:hidden;}
+

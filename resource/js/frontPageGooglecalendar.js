@@ -27,9 +27,10 @@ var frontPageGooglecalendar = {
                console.log(data.event_info);
                 
                today =  data.today;
-               total_days = data.start_day + data.max_day;
+
+               total_days = data.start_day + data.max_day + data.last_day;
                 start_day = data.start_day;
-                max_day = data.max_day;         
+                max_day = data.max_day;    
                 
                 next_year = data.next_year;
                 prev_year = data.prev_year;
@@ -80,6 +81,9 @@ var frontPageGooglecalendar = {
                         else
                         {   
                             
+                            if( ( i  - start_day + 1 ) > max_day){
+                                sCalendar += "<td>&nbsp;</td>\n";
+                            }else{
                             sLoopDate = ( ( i - start_day + 1 ) < 10 ) ?"0"+( i - start_day + 1 ) : ( i - start_day + 1 );
                             sThisDate = sYearMonth+sLoopDate;
                             if(data.event_info){
@@ -98,7 +102,7 @@ var frontPageGooglecalendar = {
                                                 sEventInfo += "  <div class='googlecalendar_event_max' onclick='frontPageGooglecalendar.listMax(" + ( i - start_day + 1 ) +");' title='Maximize Dialog'></div>\n";
                                                 sEventInfo += "  <div class='googlecalendar_event_min' onclick='frontPageGooglecalendar.listMin(" + ( i - start_day + 1 ) +");' title='Minimize Dialog'></div>\n";
                                             }
-                                            sEventInfo += "  <div class='googlecalendar_event_wrapper' id='googlecalendar_list_scroll" + ( i - start_day + 1 ) + "' " + ( (iTotalEvent >= 3) ? "style='height:255px;overflow:auto;overflow-x:hidden;'" : '' )+ ">\n";
+                                            sEventInfo += "  <div class='googlecalendar_event_wrapper' alt=" + iTotalEvent + " id='googlecalendar_list_scroll" + ( i - start_day + 1 ) + "' " + ( (iTotalEvent >= 3) ? "style='height:255px;overflow:auto;overflow-x:hidden;'" : '' )+ ">\n";
                                               
                                                  $.each(value.event_details,function(ind,val){
                                                     sEventInfo += "  <div class='googlecalendar_event_container'>\n";
@@ -116,6 +120,7 @@ var frontPageGooglecalendar = {
                                             
                                         }
                                  });
+                                
                             }
                             
                             if(iTotalEvent > 0){
@@ -136,11 +141,12 @@ var frontPageGooglecalendar = {
                             sCalendar += "<div class='googlecalendar_count_container' style='background:" + sBackground + ";'>";
                             
                             if(iTotalEvent > 0){
-                                sCalendar += "  <span id='google_calendar_event_only" +( i - start_day + 1 ) + "' class='googlecalendar_event_count'>" +iTotalEvent+ "</span>";
+                                sCalendar += "  <span id='google_calendar_event_only" +( i - start_day + 1 ) + "' class='googlecalendar_event_count' onclick='frontPageGooglecalendar.checkHeight()'>" +iTotalEvent+ "</span>";
                             }
                               sCalendar += "<span class='googlecalendar_days' style='color:" + sColor + "'>" + ( i - start_day + 1 ) + "</span>";
                             sCalendar += "</div>";
-                            sCalendar += "</td>\n";                                                            
+                            sCalendar += "</td>\n"; 
+                            }
                             
                         }
                         
@@ -181,8 +187,9 @@ var frontPageGooglecalendar = {
               },
               content: sHtml,
               position: { corner: { target: 'center', tooltip: 'bottomLeft' }, adjust: { screen: true } },
-              hide: { fixed: true, effect: { length: 0 },when : {event : 'click'} },
-              show: { solo: true, delay: 0, effect: { length: 0 },when : {event : 'click'} }
+              hide: { fixed: true, effect: { length :0  },when : {event : 'click'} },
+              show: { solo: true, delay: 0, effect: { length : 0 },when : {event : 'click'} }
+              
                });
         });
     },execEventDetails : function(data){
@@ -238,6 +245,16 @@ var frontPageGooglecalendar = {
         $('.googlecalendar_event_max').show();
         $('.googlecalendar_event_min').hide();
         $('.googlecalendar_event_wrapper').css('height','255px');
+    },checkHeight : function(){
+        $('.googlecalendar_event_max').show();
+        $('.googlecalendar_event_min').hide();
+       $('.googlecalendar_event_wrapper').each(function(index,value){
+           if($(this).attr('alt') >=3 ){
+               $(this).css('height','255px');
+           }else{
+               $(this).css('height','100%');
+           }
+       });
     }
 
 }
