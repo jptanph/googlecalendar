@@ -18,7 +18,7 @@ class adminPageSettings extends Controller_Admin
         $aResult = common()->modelAdmin()->execGetSettings();
         $this->assign('sPrefix',$this->_sPrefix);
         $this->assign('sImagePath',$this->_sImagePath);
-        usbuilder()->vd($aResult['end_time']);
+
         /** for settings value.**/
         $this->assign('iIdx',$aResult['idx']);
         $this->assign('sFeedUrl',ltrim($aResult['feed_url']));
