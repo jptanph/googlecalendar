@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <lang>
-    <var name="l.lang">Language</var>
-    <var name="l.name">English</var>
+    <menu>  
+        <var name="googlecalendar">Google Calendar</var>
+        <var name="menu_contents">Google Calendar Settings</var>
+    </menu>    
+    <var name="lang">subject</var>
+    <var name="name">Subject</var>
 </lang>

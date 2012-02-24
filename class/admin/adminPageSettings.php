@@ -15,11 +15,12 @@ class adminPageSettings extends Controller_Admin
         usbuilder()->getFormAction($this->_sPrefix . 'settings_form','adminExecSave');
         usbuilder()->validator(array('form' => $this->_sPrefix . 'settings_form'));
 
-        $aResult = common()->modelAdmin()->execGetSettings();
+        $aResult = common()->modelAdmin()->execGetSettings($aArgs);
         $this->assign('sPrefix',$this->_sPrefix);
         $this->assign('sImagePath',$this->_sImagePath);
 
         /** for settings value.**/
+        $this->assign('iSequence',$aArgs['seq']);
         $this->assign('iIdx',$aResult['idx']);
         $this->assign('sFeedUrl',ltrim($aResult['feed_url']));
         $this->assign('sStartDate',($aResult['ut_startdate'] > 0) ? $aResult['sdate'] : '' );

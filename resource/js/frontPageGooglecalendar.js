@@ -4,6 +4,7 @@ $(document).ready(function(){
 
 var frontPageGooglecalendar = {
     aLoopDate : [],
+    iSequence : 0,
     init : function(iMonth,iYear){
         var sCalendar = "";
         var sEventInfo = "";
@@ -12,6 +13,8 @@ var frontPageGooglecalendar = {
         var aDaysTitle = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
         
         var data;
+        var seq = $("#googlecalendar_sequence");
+        this.iSequence = seq.val();
         $('.left,.right').css({'visibility':'hidden'});
         $('.googlecalendar_event_count').qtip('hide');
         var options = {
@@ -20,10 +23,12 @@ var frontPageGooglecalendar = {
             type : 'post',
             data : {
                 month : iMonth,
-                year : iYear
+                year : iYear,
+                seq : frontPageGooglecalendar.iSequence
             },success : function(server_response){
-                data = server_response.Data;
                 
+                data = server_response.Data;
+                console.log(data)
                console.log(data.event_info);
                 
                today =  data.today;

@@ -1,7 +1,9 @@
 <div id="sdk_message_box"></div>
 
 <form method="post" name='<?php echo $sPrefix?>settings_form' class='<?php echo $sPrefix?>settings_form'>
+    <input type='hidden' id='seq' name='seq' value='<?php echo $iSequence;?>'>
     <input type='hidden' id="idx" name='idx' value="<?php echo $iIdx;?>">
+
 	<p class="require"><span class="neccesary">*</span> Required</p>
 	<br />
 	<!-- input area -->

@@ -12,8 +12,8 @@ class apiFrontCalendarData extends Controller_Api
         $aEvent = array();
 
         $oGcParser = new gcParser();
-
-        $aResult = common()->modelFront()->execGetSettings();
+        $aArgs['seq'] = 1;
+        $aResult = common()->modelFront()->execGetSettings($aArgs);
         $this->_sEndTime = $aResult['ut_enddate'];
         $oGcParser->setMaxResult($aResult['max_event']);
         $oGcParser->setStartTime($aResult['ut_startdate']);
