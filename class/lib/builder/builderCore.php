@@ -316,18 +316,11 @@ class builderCore
             $sPath = APP_PATH . '/install/install.sql';
             $sQuery .= file_get_contents($sPath);
             $mResult = $this->checkResult($this->_query($sQuery));
-            if ($this->helper('sequence')->isSequence()) {
-                $mResult = $mResult && $this->checkResult($this->helper('sequence')->set()->createTable());
-                $mResult = $mResult && $this->checkResult($this->helper('sequence')->set()->insert());
-            }
             return $mResult;
         } elseif ($aArgs['mode'] == 'uninstall') {
             $sPath = APP_PATH . '/install/uninstall.sql';
             $sQuery .= file_get_contents($sPath);
             $mResult = $this->checkResult($this->_query($sQuery));
-            if ($this->helper('sequence')->isSequence()) {
-                $mResult = $mResult && $this->checkResult($this->helper('sequence')->set()->dropTable());
-            }
             return $mResult;
         }
     }

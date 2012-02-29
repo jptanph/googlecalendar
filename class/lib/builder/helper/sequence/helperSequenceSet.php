@@ -18,6 +18,7 @@ class helperSequenceSet extends helperSequenceCommon
      */
     public function delete($aSeq)
     {
+        $aModuleInfo['mode'] = 'delete';
         $aModuleInfo['seq'] = $aSeq;
 
         require_once('install/installSequenceDelete.php');
@@ -25,8 +26,6 @@ class helperSequenceSet extends helperSequenceCommon
         $mResult = $oInstallSequenceDelete->run($aModuleInfo);
         //$mResult = helper()->install($aModuleInfo)->deleteSequence();
         //$mResult = $mResult && $this->_deleteRelatedAddon($sModuleCode, $aSeq);
-        $aModuleInfo['mode'] = 'delete';
-        $aModuleInfo['seq'] = $aSeq;
 
         usbuilder()->setBuilderSession('admin_menu', $aModuleInfo);
         $mResult = $mResult && $this->modelSequence()->deleteBySeq($aSeq);

@@ -72,6 +72,5 @@
 	<a href="#none" class="btn_apply" title="Save changes"  onclick='adminPageSettings.execSave();'>Save</a>
 	<a href="#none" class="add_link" title="Reset to default" onclick='adminPageSettings.execReset();'>Reset to Default</a>
 </div>
-<div id="color_picker_area">
-</div>
+<div id="color_picker_area"></div>
 

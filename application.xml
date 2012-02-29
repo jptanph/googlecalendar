@@ -3,18 +3,22 @@
     <langs support="en" default="en"></langs>
     <api use="off">
         <ifs>
+             <if class="apiBuilderLib" permission="off" desc="Api for the builder library"></if>    
+             <if class="apiFrontCalendarData" permission="off" desc="API for Generating and retrieving google calendar information from the user"></if>                             
         </ifs>
     </api>
-    <admin use="on" index="adminIndex">
+    <admin use="on" index="adminPageSettings">
         <ifs>
-            <if class="adminIndex" permission="off" desc="Sample Admin Interface"></if>
+            <if class="adminExecSave" permission="off" desc="Saving setting information"></if>
+            <if class="adminPageSettings" permission="off" desc="Display setting page."></if>
+            <if class="adminPageManage" permission="off" desc="Display manage for adding sequence module"></if>            
         </ifs>
         <menus>
         </menus>
     </admin>
     <front use="on">
         <ifs>
-            <if class="frontSample" permission="off" code-assist="off" desc="Sample Front Interface">
+            <if class="frontPageGooglecalendar" permission="off" code-assist="on" desc="googlecalendar block">
             </if>
         </ifs>
     </front>
